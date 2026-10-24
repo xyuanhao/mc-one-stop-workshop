@@ -25,7 +25,7 @@ from pathlib import Path
 
 
 def _resolve_javap() -> str:
-    """按 JAVAP → JAVA_HOME → PATH → Minecraft 自带运行时 的顺序找 javap。
+    r"""按 JAVAP → JAVA_HOME → PATH → Minecraft 自带运行时 的顺序找 javap。
 
     不写死任何机器路径：Minecraft 启动器把 JDK 放在 %APPDATA%\.minecraft\runtime\*\bin。
     """
