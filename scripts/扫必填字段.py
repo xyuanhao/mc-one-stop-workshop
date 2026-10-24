@@ -14,17 +14,36 @@
       dev.ftb.mods.ftbquests.quest.BaseQuestFile readData
 """
 import argparse
+import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
 import zipfile
 from pathlib import Path
 
-JAVAP = r"C:/Users/17732/AppData/Roaming/.minecraft/runtime/java-runtime-epsilon/bin/javap.exe"
+
+def _resolve_javap() -> str:
+    """按 JAVAP → JAVA_HOME → PATH 的顺序找 javap，避免写死某台机器的路径。"""
+    cand = os.environ.get("JAVAP", "").strip()
+    if cand and os.path.exists(cand):
+        return cand
+    jh = os.environ.get("JAVA_HOME", "").strip()
+    if jh:
+        for name in ("javap.exe", "javap"):
+            p = os.path.join(jh, "bin", name)
+            if os.path.exists(p):
+                return p
+    return shutil.which("javap") or ""
+
+
+JAVAP = _resolve_javap()
 
 
 def dump(jar: Path, cls: str) -> list[str]:
+    if not JAVAP:
+        sys.exit("找不到 javap：设置 JAVA_HOME 或 JAVAP 环境变量后重试")
     with zipfile.ZipFile(jar) as z:
         data = z.read(cls.replace(".", "/") + ".class")
     d = Path(tempfile.mkdtemp())

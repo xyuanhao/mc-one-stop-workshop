@@ -1218,7 +1218,7 @@ java.lang.NullPointerException: Cannot invoke "...ItemStackRenderState.clear()"
 
 **完整方法链**（本次跑通的，可照抄）：
 
-1. **反汇编定位**。有 JDK 就能 javap（本机：`C:/Users/17732/WorkBuddy/2026-09-06-11-38-22/工具/jdk-25.0.4.1+1/bin/`）：
+1. **反汇编定位**。有 JDK 就能 javap（`%JAVA_HOME%\bin\javap`，或设 `JAVAP` 环境变量指向它）：
    ```bash
    javap -p -c path/to/Target.class          # 单个类
    javap -cp mod.jar -p -c pkg.ClassName     # 直接从 jar 读
