@@ -25,7 +25,10 @@ from pathlib import Path
 
 
 def _resolve_javap() -> str:
-    """按 JAVAP → JAVA_HOME → PATH 的顺序找 javap，避免写死某台机器的路径。"""
+    """按 JAVAP → JAVA_HOME → PATH → Minecraft 自带运行时 的顺序找 javap。
+
+    不写死任何机器路径：Minecraft 启动器把 JDK 放在 %APPDATA%\.minecraft\runtime\*\bin。
+    """
     cand = os.environ.get("JAVAP", "").strip()
     if cand and os.path.exists(cand):
         return cand
@@ -35,7 +38,17 @@ def _resolve_javap() -> str:
             p = os.path.join(jh, "bin", name)
             if os.path.exists(p):
                 return p
-    return shutil.which("javap") or ""
+    on_path = shutil.which("javap")
+    if on_path:
+        return on_path
+    rt = os.path.join(os.environ.get("APPDATA", ""), ".minecraft", "runtime")
+    if os.path.isdir(rt):
+        for sub in sorted(os.listdir(rt), reverse=True):
+            for name in ("javap.exe", "javap"):
+                p = os.path.join(rt, sub, "bin", name)
+                if os.path.exists(p):
+                    return p
+    return ""
 
 
 JAVAP = _resolve_javap()
