@@ -1,0 +1,8 @@
+# 打包上架时排除的路径（每行一条，目录以 / 结尾）
+# 1) templates/ 里有 .gradle / .properties / .bat / .jar，平台上传不放行，
+#    故以 templates.pack.txt 归档承载，安装后用 scripts/还原templates.py 还原。
+# 2) scripts/ 下两个辅助文件同样命中平台扩展名黑名单（.gradle / .ps1），
+#    一并纳入归档，存放为 <原名>.pack.txt，由 还原templates.py 还原。
+templates/
+scripts/游戏内注入.gradle
+scripts/读图文字.ps1

@@ -1,0 +1,51 @@
+// 游戏内测试代理 —— 构建脚本（ModDevGradle / NeoForge 26.1）
+//
+// 用法（正常由 scripts/游戏内测试.py 驱动，也可手工执行）：
+//   ./gradlew build                        # 产出 build/libs/游戏内测试代理-<版本>.jar
+//   ./gradlew build -Pneo_version=26.1.2.109 # 按被测试工程的 NeoForge 构建号重编代理
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.146'
+}
+
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = mod_name
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+neoForge {
+    // -P 覆盖优先：代理要跟被测试工程用同一个 NeoForge 构建号编译，
+    // 否则可能出现「代理调用了新 API、目标工程的旧 NeoForge 里没有」的运行期 NoSuchMethodError。
+    version = (project.findProperty('neo_version_override') ?: project.findProperty('neo_version') ?: neo_version)
+
+    runs {
+        client {
+            client()
+        }
+    }
+
+    mods {
+        "mctestagent" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+repositories {
+    // 无额外仓库：本工程只用 Minecraft + NeoForge 自带的 API
+}
+
+dependencies {
+    // log4j-core 随 NeoForge 运行时提供（编译期需要它的 Appender API）
+    compileOnly 'org.apache.logging.log4j:log4j-core:2.24.3'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+// 产物落到 build/libs/<中文显示名>-<版本>.jar

@@ -1,0 +1,23 @@
+modLoader = "javafml"
+loaderVersion = "[11,)"
+license = "MIT"
+
+[[mods]]
+modId = "mctestagent"
+version = "1.0.0"
+displayName = "游戏内测试代理"
+description = '''让自动化脚本（或 AI）在真实客户端里跑场景测试的进程内代理：进世界、执行命令、按键、开界面、截图、导出状态、抓异常、退出。不是给玩家玩的 mod，不要装进正式实例。'''
+
+[[dependencies.mctestagent]]
+modId = "neoforge"
+type = "required"
+versionRange = "[26.1.0,)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.mctestagent]]
+modId = "minecraft"
+type = "required"
+versionRange = "[26.1,26.2)"
+ordering = "NONE"
+side = "CLIENT"

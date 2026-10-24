@@ -1,0 +1,54 @@
+{
+  "_usage": "python 下载模组.py 基础模组清单_26.2.json --dir <实例目录>  （--clean 清空重装；--only slug1,slug2 只下部分）",
+  "name": "基础层清单 26.2",
+  "mc": "26.2",
+  "loader": "neoforge",
+  "note": "2026-09-08 用 Modrinth API 逐个核实（有该版本文件才收录）；2026-09-10 复核通道策略。下载器默认正式版优先（release>beta>alpha 逐级回退，回退时打印原因），本清单无需再手写 beta 版本号——想追最新预发布版用 --channel latest，想只要正式版用 --channel release。影响：26.x 需 Java 25。实测全量下载 33 jar、体检 0 错误。",
+  "mods": [
+    { "slug": "xaeros-minimap",             "cat": "小地图", "required": true,  "note": "小地图，26.2-26.4.2" },
+    { "slug": "xaeros-world-map",           "cat": "小地图", "required": true,  "note": "大地图/全图，需搭配 minimap" },
+
+    { "slug": "veinminer",                  "cat": "连锁挖矿", "required": true, "note": "连锁挖矿。注意 FTB Ultimine 只发 CurseForge，Modrinth 上没有" },
+
+    { "slug": "lambdynamiclights",          "cat": "移动光源", "required": true, "note": "手持光源动态照明（移动火把）4.12.4+26.2" },
+
+    { "slug": "sodium",                     "cat": "性能优化", "required": true,  "note": "渲染优化核心（该版本下最新是 0.9.2-beta，正式版为 0.9.1——默认取正式版）" },
+    { "slug": "lithium",                    "cat": "性能优化", "required": true,  "note": "逻辑/物理优化，0.25.3" },
+    { "slug": "ferrite-core",               "cat": "性能优化", "required": true,  "note": "内存优化" },
+    { "slug": "immediatelyfast",            "cat": "性能优化", "required": true,  "note": "GUI/渲染优化" },
+    { "slug": "clumps",                     "cat": "性能优化", "required": true,  "note": "经验球合并" },
+    { "slug": "badoptimizations",           "cat": "性能优化", "required": false, "note": "杂项优化，可选项" },
+    { "slug": "sodium-extra",               "cat": "性能优化", "required": false, "note": "Sodium 附加选项，需 sodium" },
+    { "slug": "reeses-sodium-options",      "cat": "性能优化", "required": false, "note": "Sodium 设置界面重做，需 sodium" },
+    { "slug": "spark",                      "cat": "性能优化", "required": false, "note": "性能分析/卡顿排查工具，出问题时再装" },
+
+    { "slug": "jade",                       "cat": "信息显示", "required": true,  "note": "方块信息 HUD（WAILA 系），26.2.10" },
+
+    { "slug": "jei",                        "cat": "物品管理", "required": true,  "note": "配方/物品查看。注意该版本下 300+ 个文件里只有 4 个 release，默认会取正式版而非最新 beta；同类中 EMI 在 26.2 上无文件" },
+
+    { "slug": "appleskin",                  "cat": "便利", "required": true,  "note": "食物/饱和度显示" },
+    { "slug": "inventory-profiles-next",    "cat": "便利", "required": true,  "note": "一键整理背包/箱子" },
+    { "slug": "mouse-tweaks",               "cat": "便利", "required": true,  "note": "鼠标拖拽整理物品" },
+    { "slug": "controlling",                "cat": "便利", "required": true,  "note": "键位设置可搜索" },
+    { "slug": "crafting-tweaks",            "cat": "便利", "required": true,  "note": "合成台便捷按钮" },
+    { "slug": "waystones",                  "cat": "便利", "required": false, "note": "传送石碑，改变跑图体验；追求原味可不装" },
+    { "slug": "sophisticated-backpacks",    "cat": "便利", "required": false, "note": "高级背包，需 curios?" },
+    { "slug": "corpse",                     "cat": "便利", "required": false, "note": "死亡墓碑" },
+    { "slug": "natures-compass",            "cat": "便利", "required": false, "note": "寻找生物群系" },
+
+    { "slug": "cloth-config",               "cat": "前置库", "required": false, "note": "很多 mod 的配置界面依赖，装上省事" },
+    { "slug": "architectury-api",           "cat": "前置库", "required": false, "note": "跨平台 API" },
+    { "slug": "balm",                       "cat": "前置库", "required": false, "note": "多个便利 mod 的前置" },
+    { "slug": "curios",                     "cat": "前置库", "required": false, "note": "饰品栏 API" }
+  ],
+  "missing_on_26_2": {
+    "modernfix": "有 26.1 无 26.2（最新 5.27.22+mc26.1.2）",
+    "noisium": "最新停在 1.21.6",
+    "memoryleakfix": "连 1.21.1 都没跟上（停 v1.1.5）",
+    "emi": "最新 1.1.24+1.21.1",
+    "ftb-ultimine": "FTB 系列只发 CurseForge，Modrinth 无 slug（要走 MCIM 镜像或换 veinminer）",
+    "ftb-chunks / ftb-quests / ftb-library": "同上，只发 CF；且 FTB Quests 截至 26.2 仍无 26.2 版（最新 26.1.2）",
+    "i18nupdatemod": "🔴 必装项但**暂无 26.x 版**（3.7.0 支持到 1.21.10）。做 26.x 包时先现场查 Modrinth 有没有新版；没有就先照常做，等支持了补装 —— 汉化补充包的做法见 SKILL.md「给整合包做汉化」",
+    "note": "2026-09-08 晚复核：entityculling 已更新出 26.2，不在缺位名单；此名单也会过时，用前现场核实"
+  }
+}

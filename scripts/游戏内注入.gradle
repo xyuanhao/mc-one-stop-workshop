@@ -1,0 +1,33 @@
+// Gradle 初始化脚本 —— 把测试代理 jar 注入「被测试工程」的开发运行期，**不改工程任何文件**。
+//
+// 为什么要用 init script 而不是改 build.gradle：
+//   1. 不碰用户的工程（不插行、不备份、不留痕），随时可弃；
+//   2. runtimeOnly 是 Gradle 官方语义的「只在开发运行期加载」配置
+//      （和 mcjty 文档里 runtimeOnly JEI 的用法同一条路），FML 在开发环境会扫描
+//      运行时类路径上的 mod 元数据，因此带 neoforge.mods.toml 的 jar 会被当成正常 mod 载入；
+//   3. 实测：日志出现 `Found valid mod file 游戏内测试代理-1.0.0.jar with {mctestagent}` 即注入成功。
+//
+// 用法（由 scripts/游戏内测试.py 自动拼好，也可手工执行）：
+//   gradlew --init-script 游戏内注入.gradle \
+//           -Dmctestagent.jars="D:/path/游戏内测试代理-1.0.0.jar" \
+//           runClient
+//
+// 多个 jar 用分号分隔。路径含中文没问题（Gradle 用 UTF-8 读 init script 参数）。
+def jars = (System.getProperty("mctestagent.jars") ?: "")
+        .split(";")
+        .collect { it.trim() }
+        .findAll { it }
+
+gradle.afterProject { p ->
+    if (jars.isEmpty()) return
+    def cfg = p.configurations.findByName("runtimeOnly")
+    if (cfg == null) return
+    jars.each { j ->
+        def f = new File(j)
+        if (!f.exists()) {
+            p.logger.error("[mctestagent] 注入的 jar 不存在：${f}")
+        }
+        p.dependencies.add("runtimeOnly", p.files(f))
+    }
+    p.logger.lifecycle("[mctestagent] 已注入 ${jars.size()} 个 jar 到 ${p.name ?: 'rootProject'} 的 runtimeOnly")
+}

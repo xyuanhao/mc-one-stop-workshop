@@ -1,0 +1,61 @@
+{
+  "_usage": "python 下载模组.py 基础模组清单_1.20.1.json --dir <实例目录>  （--clean 清空重装；--only slug1,slug2 只下部分）",
+  "name": "基础层清单 1.20.1",
+  "mc": "1.20.1",
+  "loader": "forge",
+  "note": "2026-09-08 用 Modrinth API 逐个核实。Forge 上 Fabric 系优化 mod 要用移植版（见 note）。",
+  "mods": [
+    { "slug": "xaeros-minimap",             "cat": "小地图", "required": true,  "note": "小地图 forge-1.20.1-26.4.2" },
+    { "slug": "xaeros-world-map",           "cat": "小地图", "required": true,  "note": "大地图" },
+    { "slug": "journeymap",                 "cat": "小地图", "required": false, "version": "1.20.1-5.10.3-forge", "note": "⚠️ 有 6.0.x 但别用：26 年 8 月大改版删了 journeymap.client.api.*，一堆联动 mod 会崩。已锁 5.10.3" },
+
+    { "slug": "ore-excavation",             "cat": "连锁挖矿", "required": true,  "note": "连锁挖矿 1.13.170" },
+    { "slug": "veinminer",                  "cat": "连锁挖矿", "required": false, "note": "同类替代，二选一" },
+
+    { "slug": "lighty",                     "cat": "移动光源", "required": true,  "note": "手持光源动态照明。注意 lambdynamiclights 在 1.20.1 Forge 上无文件（那是 Fabric/新版本向）" },
+
+    { "slug": "i18nupdatemod",              "cat": "汉化", "required": true,  "note": "🔴 必装（2026-09-19 起）。自动下载并更新 CFPA 中文包（1.20+1.19+1.18 合并转成当前版本）。没有 mods.toml，走 MANIFEST 的 LaunchWrapperTweaker 启动期注入，会自己改 options.txt 启用资源包。客户端用；服务端装了也不报错但不必要" },
+
+    { "slug": "embeddium",                  "cat": "性能优化", "required": true,  "note": "Sodium 的 Forge 移植（Rubidium 继任）0.3.31" },
+    { "slug": "canary",                     "cat": "性能优化", "required": true,  "note": "Lithium 的 Forge 移植 mc1.20.1-0.3.3" },
+    { "slug": "ferrite-core",               "cat": "性能优化", "required": true,  "note": "内存优化 6.0.1" },
+    { "slug": "modernfix",                  "cat": "性能优化", "required": true,  "note": "综合优化+bug修复 5.27.83，强烈建议装" },
+    { "slug": "immediatelyfast",            "cat": "性能优化", "required": true,  "note": "GUI/渲染优化 1.5.5（文件名写 1.20.4，但声明支持 1.20~1.20.4，可用）" },
+    { "slug": "clumps",                     "cat": "性能优化", "required": true,  "note": "经验球合并" },
+    { "slug": "entityculling",              "cat": "性能优化", "required": false, "note": "实体剔除 1.10.5" },
+    { "slug": "badoptimizations",           "cat": "性能优化", "required": true,  "note": "杂项优化（客户端侧）2.4.1" },
+    { "slug": "noisium",                   "cat": "性能优化", "required": true,  "note": "世界生成加速 2.3.0+mc1.20-1.20.1（2026-09-19 实测可用）" },
+    { "slug": "cull-less-leaves-reforged", "cat": "性能优化", "required": true,  "note": "树叶剔除，1.20.1-1.0.5" },
+    { "slug": "dynamic-fps",               "cat": "性能优化", "required": true,  "note": "窗口失焦自动降帧 —— 笔记本特别值 3.11.4（注意选 game_versions 含 1.20.1 的那个文件）" },
+    { "slug": "memoryleakfix",             "cat": "性能优化", "required": true,  "note": "内存泄漏修复 v1.1.5（forge-1.17+ 那个文件同时支持 1.20.1）" },
+    { "slug": "radium",                     "cat": "性能优化", "required": false, "note": "Lithium 的另一版 Forge 移植，与 canary 二选一，别都装" },
+    { "slug": "oculus",                     "cat": "光影", "required": false, "note": "Iris 的 Forge 移植，要光影就装 1.20.1-1.8.0" },
+
+    { "slug": "jade",                       "cat": "信息显示", "required": true,  "note": "方块信息 HUD 11.13.3" },
+
+    { "slug": "jei",                        "cat": "物品管理", "required": true,  "note": "配方/物品查看 15.58.0.209（beta 但通用）" },
+
+    { "slug": "appleskin",                  "cat": "便利", "required": true,  "note": "食物/饱和度" },
+    { "slug": "inventory-profiles-next",    "cat": "便利", "required": true,  "note": "一键整理" },
+    { "slug": "mouse-tweaks",               "cat": "便利", "required": true,  "note": "鼠标拖拽整理" },
+    { "slug": "controlling",                "cat": "便利", "required": true,  "note": "键位搜索" },
+    { "slug": "crafting-tweaks",            "cat": "便利", "required": true,  "note": "合成台按钮" },
+    { "slug": "waystones",                  "cat": "便利", "required": false, "note": "传送石碑" },
+    { "slug": "sophisticated-backpacks",    "cat": "便利", "required": false, "note": "高级背包" },
+    { "slug": "corpse",                     "cat": "便利", "required": false,
+      "note": "🔴 与 gravestone **功能完全重叠**（都是死亡保存 + 传送回死亡点），且和 JourneyMap 的死亡路标点也算第三套 —— 实测玩家会直接反馈「死亡路径传送有三个模组有这功能」。**只装一个**。2026-09-19 本包选择两个都关（挪到 mods_disabled/），死亡物品改为掉在原地 + 用地图死亡点传送回去捡" },
+
+    { "slug": "cloth-config",               "cat": "前置库", "required": false, "note": "配置界面依赖" },
+    { "slug": "architectury-api",           "cat": "前置库", "required": false, "note": "跨平台 API" },
+    { "slug": "balm",                       "cat": "前置库", "required": false, "note": "多 mod 前置" },
+    { "slug": "curios",                     "cat": "前置库", "required": false, "note": "饰品栏 API" }
+  ],
+  "version_locks": {
+    "journeymap": "1.20.1-5.10.3-forge",
+    "note": "在条目里写 \"version\": \"...\" 即可锁版本（下载脚本支持）。version 值必须等于 Modrinth 的 version_number（journeymap 是 1.20.1-5.10.3-forge，不是 5.10.3）"
+  },
+  "notes": {
+    "sodium_lithium": "1.20.1 Forge 上 sodium / lithium 无 Forge 版（Fabric 专属），必须用 embeddium / canary",
+    "ftb_ultimine": "FTB Ultimine 只发 CurseForge，Modrinth 查不到——要装得走 MCIM 镜像或直接用 ore-excavation"
+  }
+}

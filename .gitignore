@@ -1,0 +1,16 @@
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# 备份与临时文件
+*.bak
+*.tmp
+*.log
+~$*
+
+# 本机环境
+.workbuddy/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
